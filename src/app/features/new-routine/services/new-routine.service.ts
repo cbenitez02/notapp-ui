@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { BaseRequestService } from '../../../core/services/base-request.service';
 import { NewRoutineBody, NewRoutineResponse } from '../interfaces/new-routine.interface';
 
@@ -7,7 +8,7 @@ import { NewRoutineBody, NewRoutineResponse } from '../interfaces/new-routine.in
   providedIn: 'root',
 })
 export class NewRoutineService extends BaseRequestService {
-  private readonly baseUrl = 'http://localhost:3000/routine';
+  private readonly baseUrl = environment.routineApiUrl;
   constructor() {
     super();
   }

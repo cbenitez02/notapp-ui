@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { BaseRequestService } from '../../../core/services/base-request.service';
 import {
   LoginBody,
@@ -15,7 +16,7 @@ import {
   providedIn: 'root',
 })
 export class AuthenticationService extends BaseRequestService {
-  private readonly baseUrl = 'http://localhost:3000/auth';
+  private readonly baseUrl = environment.authApiUrl;
   private readonly TOKEN_KEY = 'token';
   private readonly REFRESH_TOKEN_KEY = 'refresh_token';
 

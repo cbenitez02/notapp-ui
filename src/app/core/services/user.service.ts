@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { GetUserByIdResponse } from '../interfaces/users.interface';
 import { BaseRequestService } from './base-request.service';
 
@@ -7,7 +8,7 @@ import { BaseRequestService } from './base-request.service';
   providedIn: 'root',
 })
 export class UserService extends BaseRequestService {
-  private readonly baseUrl = 'http://localhost:3000';
+  private readonly baseUrl = environment.apiUrl;
 
   constructor() {
     super();

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { CategoryResponse } from '../interfaces/categories.interfaces';
 import { BaseRequestService } from './base-request.service';
 
@@ -7,7 +8,7 @@ import { BaseRequestService } from './base-request.service';
   providedIn: 'root',
 })
 export class CategoriesService extends BaseRequestService {
-  private readonly baseUrl = 'http://localhost:3000/category';
+  private readonly baseUrl = environment.categoryApiUrl;
 
   constructor() {
     super();

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { CreateTaskRequest } from '../../../core/interfaces/task.interface';
 import { BaseRequestService } from '../../../core/services/base-request.service';
 import { RoutineTaskStatus } from '../../new-routine/interfaces/new-routine.interface';
@@ -8,7 +9,7 @@ import { RoutineTaskStatus } from '../../new-routine/interfaces/new-routine.inte
   providedIn: 'root',
 })
 export class NewTaskService extends BaseRequestService {
-  private readonly baseUrl = 'http://localhost:3000/routine';
+  private readonly baseUrl = environment.routineApiUrl;
 
   constructor() {
     super();
