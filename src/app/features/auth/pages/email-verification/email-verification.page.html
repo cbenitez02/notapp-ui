@@ -1,0 +1,27 @@
+<div class="email-verification-container">
+  <div class="icon-container">
+    <img src="assets/icons/icon-email.svg" alt="Email Icon" class="logo" />
+  </div>
+  <span class="title">Verifica tu correo electronico</span>
+  <span class="text-secondary">Te hemos enviado un enlace de verificacíon</span>
+  <span class="text-secondary">Hemos enviado el correo de verificacíon a:</span>
+  <div class="email-box">
+    <span class="email">{{email}}</span>
+  </div>
+  <span class="text-secondary">Haz click en el enlace del correo para activar tu cuenta y completar el registro.</span>
+  <span class="text-secondary">¿No recibiste el correo?</span>
+  <button class="btn-outlined" (click)="resendVerificationEmail()">Reenviar correo de verificacíon</button>
+  <button class="btn-clear" (click)="goToLogin()">
+    <img src="assets/icons/arrow-logo.svg" alt="Logo Volver" />
+    <span>Volver al inicio de sesión</span>
+  </button>
+
+  <div class="tips-container">
+    <span class="tips-title">Consejos importantes:</span>
+    <ul class="tips-list">
+      <li class="tips-item">Revisa tu carpeta de spam o correo no deseado</li>
+      <li class="tips-item">El enlace expira en 24hs</li>
+      <li class="tips-item">Asegúrate de hacer click en el enlace desde el mismo dispositivo</li>
+    </ul>
+  </div>
+</div>

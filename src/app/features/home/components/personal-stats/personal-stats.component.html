@@ -1,0 +1,82 @@
+<div class="personal-stats">
+  <!-- Card 1: Tareas completadas hoy -->
+  <div class="card-container tasks-card">
+    <div class="content">
+      <div class="icon-container green-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="icon-task"
+        >
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <path d="m9 11 3 3L22 4"></path>
+        </svg>
+      </div>
+      <span class="number">{{ stats()?.dailyStats?.completedTasks }}/{{ stats()?.dailyStats?.totalTasks }}</span>
+      <span class="label">Tareas completadas hoy</span>
+      <div class="progress-bar">
+        <div class="progress-fill green-fill" [style]="`width: ${stats()?.dailyStats?.completionPercentage}`"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 2: Rutinas activas -->
+  <div class="card-container routines-card">
+    <div class="content">
+      <div class="icon-container blue-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="icon-heart"
+        >
+          <path
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+          ></path>
+        </svg>
+      </div>
+      <span class="number">{{ stats()?.weeklyStats?.activeRoutines }}</span>
+      <span class="label">Rutinas activas</span>
+      <span class="status-badge">¡Genial!</span>
+    </div>
+  </div>
+
+  <!-- Card 3: Progreso semanal -->
+  <div class="card-container progress-card">
+    <div class="content">
+      <div class="icon-container purple-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="icon-trending"
+        >
+          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+          <polyline points="17 6 23 6 23 12"></polyline>
+        </svg>
+      </div>
+      <span class="number">{{ stats()?.weeklyStats?.currentWeekCompletion }}%</span>
+      <span class="label">Progreso semanal</span>
+      <span class="status-badge purple">{{ stats()?.weeklyStats?.improvementPercentage }}% 📈</span>
+    </div>
+  </div>
+</div>

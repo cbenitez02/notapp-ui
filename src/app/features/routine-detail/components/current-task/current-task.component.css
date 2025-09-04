@@ -1,0 +1,373 @@
+.current-task-container {
+  background-color: var(--bg-card);
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.left-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.icon-container {
+  background-color: var(--bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid var(--color-primary);
+}
+
+.time {
+  font-family: 'Geist Mono', sans-serif;
+  color: var(--color-primary);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.task-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.task-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.task-description {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.chips-container {
+  display: flex;
+  gap: 8px;
+}
+
+.task-category,
+.routine-name {
+  background-color: #1f293f;
+  padding: 4px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: 8px;
+}
+
+.task-duration {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #2f2355;
+  border: 1px solid #c27aff;
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+
+.duration-time {
+  font-size: 14px;
+  font-weight: 600;
+  color: #c27aff;
+}
+
+.icon-duration-task {
+  margin-bottom: 2px;
+}
+
+.in-progress {
+  background-color: var(--color-primary);
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: var(--text-primary);
+}
+
+/* Contenedor para status y botones de acción */
+.status-and-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.action-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.action-btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.action-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+.action-btn:active::before {
+  width: 40px;
+  height: 40px;
+}
+
+.action-icon {
+  position: relative;
+  z-index: 1;
+}
+
+.complete-btn {
+  background-color: var(--color-success);
+  color: white;
+}
+
+.complete-btn:hover {
+  background-color: var(--color-success-hover);
+}
+
+.complete-btn::before {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.skip-btn {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.skip-btn:hover {
+  background-color: #d97706;
+}
+
+.skip-btn::before {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Animación de pulso suave para los botones */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(54, 179, 126, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(54, 179, 126, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(54, 179, 126, 0);
+  }
+}
+
+@keyframes pulseSkip {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(245, 158, 11, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+}
+
+.complete-btn:focus {
+  outline: none;
+  animation: pulse 1.5s infinite;
+}
+
+.skip-btn:focus {
+  outline: none;
+  animation: pulseSkip 1.5s infinite;
+}
+
+/* Tooltip personalizado */
+.action-btn[title] {
+  position: relative;
+}
+
+.action-btn[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+  border: 1px solid var(--border);
+  opacity: 0;
+  animation: fadeInTooltip 0.2s ease-in-out 0.5s forwards;
+}
+
+@keyframes fadeInTooltip {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Spinner de carga */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Estados de loading para los botones */
+.action-btn.loading {
+  pointer-events: none;
+}
+
+.action-btn.loading .spinner {
+  color: currentColor;
+}
+
+/* Estilos para cuando no hay tarea en progreso */
+.no-task-container {
+  background-color: var(--bg-card);
+  border-radius: 8px;
+  border: 2px dashed var(--border);
+  padding: 32px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-task-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.no-task-icon {
+  opacity: 0.6;
+}
+
+.no-task-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.no-task-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.no-task-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* Estilos para la próxima tarea */
+.next-task-container {
+  background-color: var(--bg-card);
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  opacity: 0.8;
+}
+
+.next-task-icon {
+  background-color: var(--bg-input);
+  border: 1px solid var(--color-primary);
+}
+
+.next-time {
+  color: var(--color-primary);
+}
+
+.next-category,
+.next-routine {
+  background-color: var(--color-primary-bg);
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.next-duration {
+  background-color: #2f2355;
+  border: 1px solid #c27aff;
+}
+
+.next-duration .duration-time {
+  color: #c27aff;
+}
+
+.next-up {
+  background-color: var(--color-primary-bg);
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: var(--color-primary);
+  font-weight: 600;
+  border: 1px solid var(--color-primary);
+}

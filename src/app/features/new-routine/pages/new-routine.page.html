@@ -1,0 +1,112 @@
+<div class="new-routine-container">
+  <div class="header-container">
+    <button class="btn-back" (click)="onBack()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="btn-back-icon"
+      >
+        <path d="m12 19-7-7 7-7"></path>
+        <path d="M19 12H5"></path>
+      </svg>
+      <span class="btn-back-text">Volver</span>
+    </button>
+    <h1>Nueva rutina</h1>
+  </div>
+  <div class="content">
+    <div class="form-container">
+      <app-routine-form></app-routine-form>
+      <app-shared-task-form></app-shared-task-form>
+    </div>
+    <div class="preview-container">
+      <app-preview-shared mode="routine"></app-preview-shared>
+
+      @if (!isRoutineValid()) {
+      <div class="validation-message">
+        <p class="validation-text">Para guardar la rutina necesitas:</p>
+        <ul class="validation-list">
+          <li [class.completed]="hasValidName()">
+            <span class="check-icon">{{ hasValidName() ? '✓' : '○' }}</span>
+            Nombre de la rutina (mínimo 3 caracteres)
+          </li>
+          <li [class.completed]="hasDays()">
+            <span class="check-icon">{{ hasDays() ? '✓' : '○' }}</span>
+            Seleccionar al menos un día
+          </li>
+          <li [class.completed]="hasTasks()">
+            <span class="check-icon">{{ hasTasks() ? '✓' : '○' }}</span>
+            Agregar al menos una tarea
+          </li>
+        </ul>
+      </div>
+      } @if (createError()) {
+      <div class="error-message">
+        <div class="error-content">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="error-icon"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="15" y1="9" x2="9" y2="15"></line>
+            <line x1="9" y1="9" x2="15" y2="15"></line>
+          </svg>
+          <span>{{ createError() }}</span>
+        </div>
+        <button class="btn-retry" (click)="createError.set(null)">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 6L6 18"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      }
+
+      <button
+        class="btn-save"
+        [disabled]="!isRoutineValid() || isCreatingRoutine()"
+        [class.disabled]="!isRoutineValid() || isCreatingRoutine()"
+        [class.loading]="isCreatingRoutine()"
+        (click)="onSaveRoutine()"
+        [title]="
+          isCreatingRoutine()
+            ? 'Creando rutina...'
+            : isRoutineValid()
+            ? 'Guardar rutina'
+            : 'Completa todos los campos requeridos'
+        "
+      >
+        @if (isCreatingRoutine()) {
+        <span class="loading-spinner"></span>
+        <span>Creando rutina...</span>
+        } @else {
+        <span>{{ isRoutineValid() ? 'Guardar rutina' : 'Completar información requerida' }}</span>
+        }
+      </button>
+    </div>
+  </div>
+</div>

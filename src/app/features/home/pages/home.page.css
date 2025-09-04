@@ -1,0 +1,40 @@
+.welcome-title {
+  font-size: 28px;
+}
+
+.loading-message {
+  color: #666;
+  font-style: italic;
+  padding: 10px;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #ffeaea;
+  border: 1px solid #ffcccb;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 0 auto;
+  gap: 16px;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.alarm-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}

@@ -1,0 +1,52 @@
+<div class="next-task-card">
+  <div class="card-header">
+    <div class="header-content">
+      <div class="icon-container">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="clock-icon"
+        >
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+          <polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="2" />
+        </svg>
+      </div>
+      <div class="header-text">
+        <h4>¿Qué sigue?</h4>
+        <p>Tus próximas tareas del día</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-content">
+    @if (hasTasks()) {
+      <div class="task-list">
+        @for (task of nextTasks(); track task.id) {
+          <div class="task-item" [class.high-priority]="task.priority === 'high'">
+            <div class="task-time">
+              {{ task.dueTime }}
+            </div>
+            <div class="task-details">
+              <h4 class="task-title">{{ task.title }}</h4>
+              @if (task.description) {
+                <p class="task-description">{{ task.description }}</p>
+              }
+              @if (task.category) {
+                <span class="task-category">{{ task.category }}</span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <div class="celebration-icon">🎉</div>
+        <h4>¡Genial! No tienes más tareas pendientes por hoy</h4>
+        <p>Es momento de relajarte</p>
+      </div>
+    }
+  </div>
+</div>

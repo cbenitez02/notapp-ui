@@ -1,0 +1,114 @@
+.personal-stats {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 200px;
+  gap: 24px;
+}
+
+/* Todas las cards en una sola fila */
+.tasks-card {
+  grid-column: 1;
+}
+
+.routines-card {
+  grid-column: 2;
+}
+
+.progress-card {
+  grid-column: 3;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 12px;
+  width: 48px;
+  height: 48px;
+}
+
+.green-icon {
+  background-color: #06332a;
+}
+
+.blue-icon {
+  background-color: #1a365d;
+}
+
+.purple-icon {
+  background-color: #44337a;
+}
+
+.icon-task {
+  color: #05c969;
+}
+
+.icon-heart {
+  color: var(--color-primary);
+}
+
+.icon-trending {
+  color: #c27aff;
+}
+
+.card-container {
+  background: var(--bg-card);
+  border-radius: 8px;
+  padding: 16px;
+  border: 2px solid var(--border);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.number {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.status-badge {
+  background-color: #1e40af;
+  color: var(--text-primary);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-badge.purple {
+  background-color: #7c3aed;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: var(--background-tertiary, #374151);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease-in-out;
+}
+
+.green-fill {
+  background: linear-gradient(90deg, #10b981, #059669);
+}

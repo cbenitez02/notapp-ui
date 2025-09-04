@@ -1,0 +1,79 @@
+.title {
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.days-grid {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.day-button {
+  background-color: var(--bg-sub-card);
+  color: var(--text-primary);
+  border: 2px solid var(--border-sub-card);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 50px;
+  text-align: center;
+}
+
+.day-button:hover {
+  background-color: var(--bg-main);
+  transform: translateY(-1px);
+}
+
+.day-button.selected {
+  font-weight: 600;
+  background-color: var(--bg-dark);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Estados deshabilitados */
+.days-grid.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.day-button:disabled,
+.day-button.disabled {
+  background-color: var(--bg-sub-card);
+  color: var(--text-disabled);
+  border-color: var(--border-sub-card);
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+  box-shadow: none;
+}
+
+.day-button:disabled:hover,
+.day-button.disabled:hover {
+  background-color: var(--bg-sub-card);
+  transform: none;
+}
+
+.selected-days-info {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .days-grid {
+    justify-content: center;
+  }
+
+  .day-button {
+    flex: 1;
+    min-width: 45px;
+  }
+}

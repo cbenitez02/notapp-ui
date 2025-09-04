@@ -1,0 +1,65 @@
+<div class="routine-header">
+  <div class="header-top">
+    <div class="date-time-info">
+      <div class="date-container">
+        <div class="icon-container">
+          <svg
+            _ngcontent-ng-c2099644924=""
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="calendar-icon"
+          >
+            <rect _ngcontent-ng-c2099644924="" x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line _ngcontent-ng-c2099644924="" x1="16" y1="2" x2="16" y2="6"></line>
+            <line _ngcontent-ng-c2099644924="" x1="8" y1="2" x2="8" y2="6"></line>
+            <line _ngcontent-ng-c2099644924="" x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+        </div>
+        <span class="date-text">{{ currentDate }}</span>
+      </div>
+      <div class="time-container">
+        <span class="current-time">{{ currentTime }}</span>
+        <span class="time-label">Hora actual</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-content">
+    <h1 class="title">Mis Rutinas</h1>
+    <div class="action-buttons">
+      <button class="btn-dashboard" type="button" (click)="onNewTask()">
+        <svg class="task-icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <rect x="8" y="2" width="8" height="4" rx="1" ry="1" stroke="currentColor" stroke-width="2" fill="none" />
+          <path
+            d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+          />
+          <path
+            d="M9 12l2 2 4-4"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        Nueva tarea
+      </button>
+      <button class="btn-new-routine" type="button" (click)="onNewRoutine()">
+        <svg class="plus-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor" />
+        </svg>
+        Nueva Rutina
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="routine-detail-container">
+  <app-routine-header></app-routine-header>
+
+  <app-routine-list [routines]="activeRoutines()"></app-routine-list>
+
+  <app-current-task
+    [currentTask]="currentTask()"
+    [nextTask]="nextTask()"
+    (completeTask)="onCompleteTask($event)"
+    (skipTask)="onSkipTask($event)"
+  >
+  </app-current-task>
+
+  <app-tasks-counter [stats]="stats()"></app-tasks-counter>
+
+  <app-task-list [tasks]="allTasks()" (taskUpdated)="onTaskUpdated($event)"></app-task-list>
+</div>

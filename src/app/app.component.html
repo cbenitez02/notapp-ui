@@ -1,0 +1,10 @@
+@if (showNavigation) {
+  <app-navbar></app-navbar>
+  <app-sidebar></app-sidebar>
+}
+<div [class.main-content]="showNavigation">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- Componente de notificaciones de alarma - visible en toda la app -->
+<app-alarm-notifications></app-alarm-notifications>

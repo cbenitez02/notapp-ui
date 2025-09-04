@@ -1,0 +1,36 @@
+:host {
+  position: fixed;
+  top: 60px; /* Debajo de la navbar */
+  left: 0;
+  width: 60px;
+  height: calc(100vh - 60px);
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.item {
+  padding: 4px 8px;
+  border: 2px solid transparent;
+}
+
+.item.active {
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.icon.first-icon {
+  width: 28px;
+  height: 28px;
+}

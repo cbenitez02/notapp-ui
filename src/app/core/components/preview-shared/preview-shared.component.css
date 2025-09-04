@@ -1,0 +1,372 @@
+:host {
+  width: 100%;
+}
+
+.routine-preview-container {
+  background-color: var(--bg-card);
+  width: 100%;
+  padding: 24px;
+  border-radius: 8px;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.title,
+.routine-name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.routine-name {
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.4s ease;
+}
+
+.icon-clock {
+  margin-bottom: 2px;
+  color: var(--color-primary);
+}
+
+.routine-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: fadeInUp 0.4s ease;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.empty-message {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin: 0;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+.chips,
+.sub-chips {
+  display: flex;
+  gap: 8px;
+}
+
+.chips {
+  animation: fadeInUp 0.5s ease;
+}
+.sub-chips {
+  animation: fadeInUp 0.6s ease;
+}
+
+/* Chips */
+.task-counter,
+.existing-task-counter,
+.new-task-counter,
+.day-counter,
+.time-counter,
+.sub-chip {
+  font-size: 14px;
+  padding: 2px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInScale 0.3s ease;
+}
+
+.task-counter {
+  background-color: var(--bg-sub-card);
+  color: var(--text-secondary);
+}
+
+.existing-task-counter {
+  background-color: #1e3a5f;
+  color: #64b5f6;
+  border: 1px solid #64b5f6;
+}
+
+.new-task-counter {
+  background-color: #2e7d32;
+  color: #81c784;
+  border: 1px solid #81c784;
+}
+
+.time-counter {
+  background-color: #2f2355;
+  color: #c27aff;
+  border: 1px solid #c27aff;
+}
+
+.day-counter,
+.sub-chip {
+  background-color: var(--bg-dark);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.sub-chip.no-days {
+  background-color: var(--bg-sub-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--text-secondary);
+  opacity: 0.7;
+}
+
+/* Task Sections */
+.tasks-section,
+.existing-tasks-section,
+.new-tasks-section {
+  margin-top: 20px;
+  animation: fadeInUp 0.5s ease;
+}
+
+.existing-tasks-section,
+.new-tasks-section {
+  margin-top: 16px;
+}
+
+.tasks-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 12px 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.section-header h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.no-tasks-message {
+  margin-top: 16px;
+  padding: 20px;
+  text-align: center;
+  background-color: rgba(var(--color-primary-rgb), 0.05);
+  border-radius: 8px;
+  border: 1px dashed var(--color-primary);
+  animation: fadeInUp 0.4s ease;
+}
+
+.no-tasks-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+  opacity: 0.8;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-card {
+  background-color: var(--bg-sub-card);
+  border-radius: 12px;
+  padding: 16px;
+  border: 2px solid var(--border-sub-card);
+  animation: fadeInScale 0.4s ease;
+  transition: all 0.2s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.existing-task {
+  border-left: 3px solid #64b5f6;
+  background-color: rgba(30, 58, 95, 0.1);
+}
+
+.new-task {
+  border-left: 3px solid #81c784;
+  background-color: rgba(46, 125, 50, 0.1);
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.left-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.task-time,
+.task-duration {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.delete-task-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  opacity: 0.6;
+}
+
+.delete-task-btn:hover {
+  color: #ef4444;
+  background-color: #fef2f2;
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.time-icon,
+.duration-icon {
+  color: var(--color-primary);
+}
+
+.duration-icon {
+  margin-bottom: 2px;
+}
+
+.time-text {
+  font-family: 'Geist Mono', sans-serif;
+  color: var(--color-primary);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.duration-text {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.task-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.task-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-category,
+.task-day {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.task-category {
+  background-color: var(--bg-dark);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.task-day {
+  padding: 2px 8px;
+  border-radius: 12px;
+  background-color: var(--bg-sub-card);
+  color: var(--text-secondary);
+}
+
+.task-priority {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 1px solid;
+}
+
+.task-priority[data-priority='high'] {
+  background-color: #ef4444;
+  border-color: #ef4444;
+  color: #ffffff;
+}
+.task-priority[data-priority='medium'] {
+  background-color: #f59e0b;
+  border-color: #f59e0b;
+  color: #ffffff;
+}
+.task-priority[data-priority='low'] {
+  background-color: #22c55e;
+  border-color: #22c55e;
+  color: #ffffff;
+}
+
+.priority-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,23 @@
+@if (isLoading()) {
+<div class="loading-message">Cargando...</div>
+} @if (errorMessage()) {
+<div class="error-message">{{ errorMessage() }}</div>
+} @if (true) {
+<div class="home-container">
+  <app-welcome-message></app-welcome-message>
+  <app-day-hour></app-day-hour>
+  <div class="home-content">
+    <app-personal-stats [stats]="routinesStats()"></app-personal-stats>
+    <app-action-buttons></app-action-buttons>
+    <!-- <app-next-task-card></app-next-task-card> -->
+  </div>
+
+  <!-- Configuración de alarmas -->
+  <div class="alarm-controls">
+    <app-alarm-settings></app-alarm-settings>
+  </div>
+</div>
+
+} @else {
+<app-no-data-results></app-no-data-results>
+}

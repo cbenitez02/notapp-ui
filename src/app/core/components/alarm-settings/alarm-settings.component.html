@@ -1,0 +1,90 @@
+<div class="alarm-settings">
+  <button class="settings-toggle" (click)="toggleSettings()" aria-label="Configurar alarmas">
+    <span class="icon">⚙️</span>
+    <span class="text">Alarmas</span>
+  </button>
+
+  <div class="settings-panel" [class.open]="showSettings">
+    <div class="panel-header">
+      <h3>Configuración de Alarmas</h3>
+      <button class="close-btn" (click)="toggleSettings()" aria-label="Cerrar">✕</button>
+    </div>
+
+    <div class="panel-content">
+      <div class="setting-group">
+        <div class="setting-item">
+          <label class="setting-label">
+            <input type="checkbox" [(ngModel)]="alarmConfig.enabled" (change)="updateConfig()" />
+            <span class="checkmark"></span>
+            Habilitar alarmas
+          </label>
+          <p class="setting-description">Activa o desactiva todas las alarmas</p>
+        </div>
+
+        <div class="setting-item" [class.disabled]="!alarmConfig.enabled">
+          <label class="setting-label">
+            <input
+              type="checkbox"
+              [(ngModel)]="alarmConfig.sound"
+              (change)="updateConfig()"
+              [disabled]="!alarmConfig.enabled"
+            />
+            <span class="checkmark"></span>
+            Alarma sonora
+          </label>
+          <p class="setting-description">Reproduce un sonido cuando se acerca una tarea</p>
+        </div>
+
+        <div class="setting-item" [class.disabled]="!alarmConfig.enabled">
+          <label class="setting-label">
+            <input
+              type="checkbox"
+              [(ngModel)]="alarmConfig.visual"
+              (change)="updateConfig()"
+              [disabled]="!alarmConfig.enabled"
+            />
+            <span class="checkmark"></span>
+            Notificaciones visuales
+          </label>
+          <p class="setting-description">Muestra notificaciones en pantalla y del navegador</p>
+        </div>
+
+        <div class="setting-divider"></div>
+
+        <div class="setting-item" [class.disabled]="!alarmConfig.enabled">
+          <label class="setting-label">
+            <input
+              type="checkbox"
+              [(ngModel)]="alarmConfig.minutes5Before"
+              (change)="updateConfig()"
+              [disabled]="!alarmConfig.enabled"
+            />
+            <span class="checkmark"></span>
+            Alarma 5 minutos antes
+          </label>
+          <p class="setting-description">Notifica 5 minutos antes de que comience una tarea</p>
+        </div>
+
+        <div class="setting-item" [class.disabled]="!alarmConfig.enabled">
+          <label class="setting-label">
+            <input
+              type="checkbox"
+              [(ngModel)]="alarmConfig.minutes1Before"
+              (change)="updateConfig()"
+              [disabled]="!alarmConfig.enabled"
+            />
+            <span class="checkmark"></span>
+            Alarma 1 minuto antes
+          </label>
+          <p class="setting-description">Notifica 1 minuto antes de que comience una tarea</p>
+        </div>
+      </div>
+
+      <div class="panel-actions">
+        <button class="test-btn" (click)="testAlarm()" [disabled]="!alarmConfig.enabled">🔔 Probar alarma</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" [class.open]="showSettings" (click)="toggleSettings()"></div>
+</div>

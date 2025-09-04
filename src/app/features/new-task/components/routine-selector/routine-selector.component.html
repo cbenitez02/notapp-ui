@@ -1,0 +1,83 @@
+<div class="routine-selector-container">
+  <div class="title-container">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#2684ff"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="icon-calendar"
+    >
+      <path d="M8 2v4"></path>
+      <path d="M16 2v4"></path>
+      <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+      <path d="M3 10h18"></path>
+    </svg>
+    <span class="title">Seleccionar rutina</span>
+  </div>
+
+  <div class="routine-selector-content">
+    <div class="form-group">
+      <label for="routine-select" class="form-label">Rutina de Destino</label>
+
+      @if (isLoadingRoutines()) {
+        <div class="loading-routines">
+          <div class="loading-spinner"></div>
+          <span>Cargando rutinas...</span>
+        </div>
+      } @else if (routinesError()) {
+        <div class="error-state">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="15" y1="9" x2="9" y2="15"></line>
+            <line x1="9" y1="9" x2="15" y2="15"></line>
+          </svg>
+          <span>{{ routinesError() }}</span>
+          <button type="button" class="refresh-btn" (click)="refreshRoutines()" title="Reintentar cargar rutinas">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+              <path d="M21 3v5h-5"></path>
+              <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+              <path d="M3 21v-5h5"></path>
+            </svg>
+          </button>
+        </div>
+      } @else {
+        @if (routines().length > 0) {
+          <form [formGroup]="routineForm">
+            <select
+              id="routine-select"
+              class="routine-select"
+              formControlName="selectedRoutine"
+              [disabled]="isLoadingRoutines()"
+            >
+              <option value="" disabled>Selecciona una rutina</option>
+              @for (routine of routines(); track routine.id) {
+                <option [value]="routine.title">{{ routine.title }}</option>
+              }
+            </select>
+          </form>
+        } @else {
+          <div class="no-routines">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 6h13"></path>
+              <path d="M8 12h13"></path>
+              <path d="M8 18h13"></path>
+              <path d="M3 6h.01"></path>
+              <path d="M3 12h.01"></path>
+              <path d="M3 18h.01"></path>
+            </svg>
+            <div class="no-routines-content">
+              <p>No hay rutinas disponibles</p>
+              <small>Crea una rutina primero para poder agregar tareas</small>
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</div>

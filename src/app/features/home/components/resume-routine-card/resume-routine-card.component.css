@@ -1,0 +1,150 @@
+.card-container {
+  background-color: var(--bg-card);
+  border-radius: 8px;
+  padding: 20px 24px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  border: 2px solid var(--border);
+}
+
+.card-title {
+  font-size: 24px;
+  color: var(--text-primary);
+  font-weight: bold;
+}
+
+.card-subtitle {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.date-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.progress-container {
+  display: flex;
+  gap: 18px;
+}
+
+.data-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.porcentage-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.porcentage {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.routine-date {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.number {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.description {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.completed {
+  color: var(--color-success);
+}
+
+.missed {
+  color: var(--color-error);
+}
+
+.in-progress {
+  color: var(--color-primary);
+}
+
+.pending {
+  color: var(--text-secondary);
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  margin-bottom: 2px;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border: 2px solid var(--color-primary);
+  background-color: var(--bg-dark);
+  border-radius: 8px;
+}
+
+.left-data {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.right-data {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.top-data {
+  display: flex;
+  gap: 10px;
+}
+
+.task-title {
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.task-description {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.chip {
+  border: 1px solid var(--color-yellow);
+  border-radius: 8px;
+  background-color: var(--color-bg-yellow);
+  padding: 0px 15px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.chip-state {
+  background-color: var(--color-primary);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 2px 15px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.hour {
+  font-size: 16px;
+  font-family: 'Geist Mono', sans-serif;
+}

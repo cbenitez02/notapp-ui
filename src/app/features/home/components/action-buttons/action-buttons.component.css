@@ -1,0 +1,130 @@
+.action-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+.action-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.action-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.create-routine {
+  background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+  border-color: #3730a3;
+}
+
+.create-routine:hover {
+  border-color: #4338ca;
+  box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
+}
+
+.view-routine {
+  background: linear-gradient(135deg, #065f46 0%, #047857 100%);
+  border-color: #047857;
+}
+
+.view-routine:hover {
+  border-color: #059669;
+  box-shadow: 0 8px 25px rgba(6, 95, 70, 0.3);
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.plus-icon,
+.calendar-icon {
+  color: white;
+}
+
+.text-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.action-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.action-description {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.arrow-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.action-card:hover .arrow-container {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(2px) translateY(-2px);
+}
+
+.arrow-icon {
+  color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .action-buttons {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .action-card {
+    padding: 20px;
+  }
+
+  .action-title {
+    font-size: 16px;
+  }
+
+  .action-description {
+    font-size: 13px;
+  }
+}

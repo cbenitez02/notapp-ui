@@ -1,0 +1,47 @@
+<div class="tasks-counter-container">
+  <div class="header">
+    <h3 class="title">Progreso del Día</h3>
+  </div>
+
+  <div class="stats-flex">
+    <!-- Completadas -->
+    <div class="stat-item completed">
+      <div class="stat-number">{{ stats()?.dailyStats?.completedTasks }}</div>
+      <div class="stat-label">Completadas</div>
+    </div>
+
+    <!-- Perdidas -->
+    <div class="stat-item lost">
+      <div class="stat-number">{{ stats()?.dailyStats?.missedTasks }}</div>
+      <div class="stat-label">Perdidas</div>
+    </div>
+
+    <!-- En Curso -->
+    <div class="stat-item in-progress">
+      <div class="stat-number">{{ stats()?.dailyStats?.inProgressTasks }}</div>
+      <div class="stat-label">En Curso</div>
+    </div>
+
+    <!-- Saltadas -->
+    <div class="stat-item skipped">
+      <div class="stat-number">{{ stats()?.dailyStats?.skippedTasks }}</div>
+      <div class="stat-label">Saltadas</div>
+    </div>
+
+    <!-- Pendientes -->
+    <div class="stat-item pending">
+      <div class="stat-number">{{ stats()?.dailyStats?.pendingTasks }}</div>
+      <div class="stat-label">Pendientes</div>
+    </div>
+  </div>
+
+  <div class="progress-section">
+    <div class="progress-info">
+      <span class="progress-label">Progreso</span>
+      <span class="progress-percentage">{{ getCeilCompletionPercentage() }}%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="stats()?.dailyStats?.completionPercentage"></div>
+    </div>
+  </div>
+</div>

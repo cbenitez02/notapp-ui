@@ -1,0 +1,21 @@
+<div class="day-selector">
+  <h3 class="title">Días de la Semana</h3>
+
+  <div class="days-grid" [class.disabled]="disabled()">
+    <button
+      *ngFor="let day of days()"
+      class="day-button"
+      [class.selected]="day.selected"
+      [class.disabled]="disabled()"
+      [disabled]="disabled()"
+      (click)="toggleDay(day)"
+      type="button"
+    >
+      {{ day.abbreviation }}
+    </button>
+  </div>
+
+  <div class="selected-days-info">
+    {{ selectedDaysText() }}
+  </div>
+</div>

@@ -1,0 +1,206 @@
+<div class="task-form-container">
+  <div class="task-form-header">
+    <img src="/assets/icons/icon-tasks.svg" alt="icon-task" class="icon-task" />
+    <span class="form-title">Agregar Tarea</span>
+  </div>
+
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="task-form">
+    <!-- Nombre de la tarea -->
+    <div class="form-group">
+      <label for="taskName" class="form-label">Nombre de la Tarea</label>
+      <input
+        type="text"
+        id="taskName"
+        formControlName="taskName"
+        class="form-control input-text"
+        [class.error]="taskName?.invalid && taskName?.touched"
+        placeholder="Ej: Ejercicio, Desayuno, Reunión..."
+        maxlength="100"
+      />
+      @if (taskName?.invalid && taskName?.touched) {
+        <div class="error-message">
+          @if (taskName?.errors?.['required']) {
+            <span>El nombre de la tarea es obligatorio</span>
+          }
+          @if (taskName?.errors?.['maxlength']) {
+            <span>Máximo 100 caracteres</span>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Hora y Duración -->
+    <div class="form-row">
+      <div class="form-group half-width">
+        <label for="dueTime" class="form-label">Hora</label>
+        <input
+          type="time"
+          id="dueTime"
+          class="form-control input-text input-time"
+          [class.error]="dueTime?.invalid && dueTime?.touched"
+          formControlName="dueTime"
+        />
+        @if (dueTime?.invalid && dueTime?.touched) {
+          <div class="error-message">
+            @if (dueTime?.errors?.['required']) {
+              <span>La hora es obligatoria</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group half-width">
+        <label for="duration" class="form-label">Duración (min)</label>
+        <input
+          type="number"
+          id="duration"
+          class="form-control input-text"
+          [class.error]="duration?.invalid && duration?.touched"
+          formControlName="duration"
+          min="1"
+          placeholder="30"
+        />
+        @if (duration?.invalid && duration?.touched) {
+          <div class="error-message">
+            @if (duration?.errors?.['required']) {
+              <span>La duración es obligatoria</span>
+            }
+            @if (duration?.errors?.['min']) {
+              <span>La duración debe ser al menos 1 minuto</span>
+            }
+            @if (duration?.errors?.['max']) {
+              <span>La duración no puede exceder 24 horas (1440 min)</span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Categoría -->
+    <div class="form-group">
+      <div class="form-label-container">
+        <div class="form-label">Categoría</div>
+        @if (categoriesError()) {
+          <button type="button" class="refresh-btn" (click)="refreshCategories()" title="Reintentar cargar categorías">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+              <path d="M21 3v5h-5"></path>
+              <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+              <path d="M3 21v-5h5"></path>
+            </svg>
+          </button>
+        }
+      </div>
+
+      @if (isLoadingCategories()) {
+        <div class="loading-categories">
+          <div class="loading-spinner"></div>
+          <span>Cargando categorías...</span>
+        </div>
+      } @else if (categoriesError()) {
+        <div class="error-state">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="15" y1="9" x2="9" y2="15"></line>
+            <line x1="9" y1="9" x2="15" y2="15"></line>
+          </svg>
+          <span>{{ categoriesError() }}</span>
+        </div>
+      }
+
+      <div class="category-buttons">
+        @for (cat of categories(); track cat.id) {
+          <button
+            type="button"
+            class="category-btn"
+            [class.active]="category?.value === cat.name"
+            [class]="'category-' + cat.name.toLowerCase()"
+            (click)="taskForm.patchValue({ category: cat.name })"
+            [disabled]="isLoadingCategories()"
+          >
+            {{ cat.name }}
+          </button>
+        } @empty {
+          @if (!isLoadingCategories() && !categoriesError()) {
+            <div class="no-categories">
+              <span>No hay categorías disponibles</span>
+            </div>
+          }
+        }
+      </div>
+    </div>
+
+    <!-- Prioridad -->
+    <div class="form-group">
+      <div class="form-label">Prioridad</div>
+      <div class="priority-buttons">
+        @for (p of priorities; track p.value) {
+          <button
+            type="button"
+            class="priority-btn"
+            [class.active]="priority?.value === p.value"
+            [class]="p.color"
+            (click)="taskForm.patchValue({ priority: p.value })"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="priority-icon"
+            >
+              @switch (p.value) {
+                @case ('high') {
+                  <path d="m7 11 5-5 5 5"></path>
+                  <path d="m7 17 5-5 5 5"></path>
+                }
+                @case ('medium') {
+                  <path d="M5 12h14"></path>
+                }
+                @case ('low') {
+                  <path d="m17 13-5 5-5-5"></path>
+                  <path d="m17 7-5 5-5-5"></path>
+                }
+              }
+            </svg>
+            {{ p.label }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Descripción -->
+    <div class="form-group">
+      <label for="description" class="form-label">Descripción (Opcional)</label>
+      <textarea
+        id="description"
+        class="form-control input-text form-textarea"
+        formControlName="description"
+        placeholder="Detalles adicionales sobre la tarea..."
+        rows="3"
+        maxlength="500"
+      ></textarea>
+      <div class="character-count">{{ description?.value?.length || 0 }}/500</div>
+      @if (description?.invalid && description?.touched) {
+        <div class="error-message">
+          @if (description?.errors?.['maxlength']) {
+            <span>Máximo 500 caracteres</span>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Botón de envío -->
+    <div class="form-actions">
+      <button type="submit" class="submit-btn" [disabled]="taskForm.invalid">
+        <span class="btn-icon">+</span>
+        Agregar Tarea
+      </button>
+    </div>
+  </form>
+</div>

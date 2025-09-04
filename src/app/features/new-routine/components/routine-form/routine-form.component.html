@@ -1,0 +1,92 @@
+<div class="routine-form-container">
+  <div class="title-container">
+    <img src="assets/icons/icon-info.svg" alt="icon info" class="icon-info" />
+    <span class="title">Información de la rutina</span>
+  </div>
+  <form [formGroup]="routineForm">
+    <div class="form-group">
+      <label for="routineName">Nombre de la Rutina</label>
+      <input
+        type="text"
+        id="routineName"
+        formControlName="routineName"
+        class="form-control input-text"
+        [class.error]="routineForm.get('routineName')?.invalid && routineForm.get('routineName')?.touched"
+        placeholder="Ej: Rutina Matutina, Dia de trabajo..."
+      />
+      <div
+        class="error-message"
+        *ngIf="routineForm.get('routineName')?.invalid && routineForm.get('routineName')?.touched"
+      >
+        <span *ngIf="routineForm.get('routineName')?.errors?.['required']">El nombre de la rutina es obligatorio</span>
+        <span *ngIf="routineForm.get('routineName')?.errors?.['minlength']"
+          >El nombre debe tener al menos 3 caracteres</span
+        >
+      </div>
+    </div>
+
+    <div class="form-group mt-2">
+      <label for="routineIcon">Icono de la Rutina</label>
+      <div class="custom-select-container">
+        <div
+          class="custom-select"
+          [class.error]="routineForm.get('routineIcon')?.invalid && routineForm.get('routineIcon')?.touched"
+          [class.open]="isDropdownOpen"
+          (click)="toggleDropdown()"
+        >
+          <div class="selected-option">
+            <div class="selected-content">
+              <img [src]="selectedIconOption?.icon" [alt]="selectedIconOption?.label" class="icon-img" />
+              <span class="value-selected">{{ selectedIconOption?.label }}</span>
+            </div>
+            <div class="dropdown-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <polyline
+                  points="6,9 12,15 18,9"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></polyline>
+              </svg>
+            </div>
+          </div>
+
+          <div class="dropdown-options" *ngIf="isDropdownOpen">
+            <div
+              *ngFor="let iconOption of iconOptions"
+              class="option-item"
+              (click)="selectIcon(iconOption); $event.stopPropagation()"
+            >
+              <img [src]="iconOption.icon" [alt]="iconOption.label" class="icon-img" />
+              <span>{{ iconOption.label }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="error-message"
+        *ngIf="routineForm.get('routineIcon')?.invalid && routineForm.get('routineIcon')?.touched"
+      >
+        <span *ngIf="routineForm.get('routineIcon')?.errors?.['required']">Debes seleccionar un icono</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <app-day-selector
+        [selectedDays]="routineForm.get('selectedDays')?.value || []"
+        [disabled]="isDaySelectorDisabled()"
+        (selectedDaysChange)="onSelectedDaysChange($event)"
+      ></app-day-selector>
+      <div class="info-message" *ngIf="isDaySelectorDisabled()">
+        <span>Ingresa el nombre de la rutina para seleccionar los días</span>
+      </div>
+      <div
+        class="error-message"
+        *ngIf="routineForm.get('selectedDays')?.invalid && routineForm.get('selectedDays')?.touched"
+      >
+        <span *ngIf="routineForm.get('selectedDays')?.errors?.['required']">Debes seleccionar al menos un día</span>
+      </div>
+    </div>
+  </form>
+</div>

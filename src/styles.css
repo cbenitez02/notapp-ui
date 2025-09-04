@@ -1,0 +1,34 @@
+@import './styles/variables.css';
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+  scroll-behavior: auto; /* Disable smooth scrolling for route changes */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Ensure router-outlet starts at top */
+router-outlet + * {
+  display: block;
+  animation: routeAnimation 0.1s;
+}
+
+@keyframes routeAnimation {
+  0% {
+    scroll-behavior: auto;
+  }
+  100% {
+    scroll-behavior: auto;
+  }
+}

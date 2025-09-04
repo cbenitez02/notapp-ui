@@ -1,0 +1,86 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+  <div class="form-group">
+    <label for="fullname" [class.label-error]="fullname()?.invalid && fullname()?.touched">Nombre completo</label>
+    <input
+      type="text"
+      id="fullname"
+      formControlName="fullname"
+      class="form-control input-text"
+      [class.is-invalid]="fullname()?.invalid && fullname()?.touched"
+      placeholder="Ingrese su nombre completo"
+    />
+
+    @if (fullname()?.invalid && fullname()?.touched) {
+      <div class="error-message">{{ fullnameError() }}</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="email" [class.label-error]="email()?.invalid && email()?.touched">Correo Electrónico</label>
+    <input
+      type="email"
+      id="email"
+      formControlName="email"
+      class="form-control input-text"
+      [class.is-invalid]="email()?.invalid && email()?.touched"
+      placeholder="Ingrese su correo electrónico"
+    />
+    @if (email()?.invalid && email()?.touched) {
+      <div class="error-message">{{ emailError() }}</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="password" [class.label-error]="password()?.invalid && password()?.touched">Contraseña</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      class="form-control input-text"
+      [class.is-invalid]="password()?.invalid && password()?.touched"
+      placeholder="Ingrese su contraseña"
+    />
+    @if (password()?.invalid && password()?.touched) {
+      <div class="error-message">{{ passwordError() }}</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="confirmPassword" [class.label-error]="confirmPassword()?.invalid && confirmPassword()?.touched"
+      >Confirmar Contraseña</label
+    >
+    <input
+      type="password"
+      id="confirmPassword"
+      formControlName="confirmPassword"
+      class="form-control input-text"
+      [class.is-invalid]="confirmPassword()?.invalid && confirmPassword()?.touched"
+      placeholder="Confirme su contraseña"
+    />
+    @if (confirmPassword()?.invalid && confirmPassword()?.touched) {
+      <div class="error-message">{{ confirmPasswordError() }}</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <div class="input-check">
+      <input type="checkbox" class="check" formControlName="terms" />
+      <label class="terms">
+        <span class="text"> Acepto los<span class="link"> términos y condiciones </span> </span>
+      </label>
+    </div>
+    @if (terms()?.invalid && terms()?.touched) {
+      <div class="error-message">{{ termsError() }}</div>
+    }
+  </div>
+
+  <div class="btn-container">
+    <button type="submit" class="btn">
+      <span class="text-in-btn">Registrarse</span>
+    </button>
+  </div>
+
+  <div class="text-container">
+    <span class="text">¿Ya tenes una cuenta? <span class="link" (click)="goToLogin()">Inicia sesión aquí</span></span>
+  </div>
+</form>

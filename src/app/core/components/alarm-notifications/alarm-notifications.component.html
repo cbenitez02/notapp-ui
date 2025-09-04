@@ -1,0 +1,50 @@
+@if (notifications.length > 0) {
+  <div class="alarm-notifications">
+    @for (notification of notifications; track notification.id) {
+      <div
+        class="notification"
+        [class.urgent]="notification.type === 'urgent'"
+        [class.warning]="notification.type === 'warning'"
+      >
+        <div class="notification-icon">
+          @if (notification.type === 'urgent') {
+            <span>⚠️</span>
+          }
+          @if (notification.type === 'warning') {
+            <span>🔔</span>
+          }
+        </div>
+
+        <div class="notification-content">
+          <h4 class="notification-title">
+            {{ notification.type === 'urgent' ? '¡Tarea próxima!' : 'Recordatorio de tarea' }}
+          </h4>
+          <p class="notification-message">
+            <strong>{{ notification.task.title }}</strong> comienza en
+            <span class="time-remaining">{{ notification.minutesUntilTask }}</span>
+            {{ notification.minutesUntilTask === 1 ? 'minuto' : 'minutos' }}
+          </p>
+          @if (notification.task.timeLocal) {
+            <p class="notification-time">Hora programada: {{ notification.task.timeLocal }}</p>
+          }
+        </div>
+
+        <div class="notification-actions">
+          @if (notification.type === 'urgent') {
+            <!-- Botón principal con área clickeable expandida -->
+            <button
+              class="notification-complete"
+              (click)="confirmUrgentAlarm()"
+              (mousedown)="onConfirmButtonMouseDown($event)"
+              (touchstart)="onConfirmButtonTouch($event)"
+            >
+              ✓ Confirmar
+            </button>
+          } @else {
+            <button class="notification-dismiss" (click)="dismissNotification(notification.id)">✕</button>
+          }
+        </div>
+      </div>
+    }
+  </div>
+}

@@ -1,0 +1,274 @@
+<div class="routine-preview-container">
+  <div class="title-container">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="icon-clock"
+    >
+      <circle cx="12" cy="12" r="10"></circle>
+      <polyline points="12 6 12 12 16 14"></polyline>
+    </svg>
+    <span class="title">{{ title() }}</span>
+  </div>
+
+  @if (hasData()) {
+    <div class="routine-info">
+      @if (hasRoutineName()) {
+        <span class="routine-name">{{ routineName() }}</span>
+      }
+
+      @if (hasChipsData()) {
+        <div class="chips">
+          @if (mode === 'task') {
+            <!-- Para modo task: mostrar información de rutina seleccionada -->
+            @if (existingTaskCount() > 0) {
+              <!-- Chip de total solo si hay rutina seleccionada -->
+              <span class="task-counter"
+                >{{ totalTaskCount() }} {{ totalTaskCount() === 1 ? 'tarea' : 'tareas' }} total</span
+              >
+              <!-- Chip de existentes siempre que hay rutina -->
+              <span class="existing-task-counter"
+                >{{ existingTaskCount() }} existente{{ existingTaskCount() === 1 ? '' : 's' }}</span
+              >
+              <!-- Chip de duración total siempre que hay rutina -->
+              <span class="time-counter">{{ formatDuration(totalCombinedTime()) }} total</span>
+            }
+            <!-- Chip de nuevas solo cuando hay tareas nuevas -->
+            @if (taskCount() > 0) {
+              <span class="new-task-counter">{{ taskCount() }} nueva{{ taskCount() === 1 ? '' : 's' }}</span>
+            }
+          } @else {
+            <!-- Para modo routine: lógica original -->
+            @if (taskCount() > 0) {
+              <span class="task-counter">{{ taskCount() }} {{ taskCount() === 1 ? 'tarea' : 'tareas' }}</span>
+            }
+            @if (dayCount() > 0) {
+              <span class="day-counter">{{ dayCount() }} {{ dayCount() === 1 ? 'día' : 'días' }}</span>
+            }
+            @if (totalTime() > 0) {
+              <span class="time-counter">{{ formatDuration(totalTime()) }} total</span>
+            }
+          }
+        </div>
+
+        @if (mode === 'routine' && dayLabels().length > 0) {
+          <div class="sub-chips">
+            @for (dayLabel of dayLabels(); track dayLabel) {
+              <span class="sub-chip">{{ dayLabel }}</span>
+            }
+          </div>
+        }
+      }
+
+      <!-- Sección de tareas -->
+      @if (mode === 'task' && newTasks().length > 0) {
+        <div class="tasks-section">
+          <!-- Solo mostrar tareas nuevas -->
+          <div class="new-tasks-section">
+            <h3 class="tasks-title">Tareas nuevas que se agregarán</h3>
+            <div class="tasks-list">
+              @for (task of tasksWithCategoryNames(); track task.id; let i = $index) {
+                <div class="task-card new-task">
+                  <div class="task-header">
+                    <div class="left-header">
+                      <div class="task-time">
+                        <span class="time-text">{{ task.dueTime || '--:--' }}</span>
+                      </div>
+                      <span class="task-title">{{ task.title }}</span>
+                    </div>
+                    <div class="task-actions">
+                      <div class="task-duration">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="duration-icon"
+                        >
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span class="duration-text">{{ formatDuration(task.duration) }}</span>
+                      </div>
+                      <button class="delete-task-btn" (click)="removeTask(i)" title="Eliminar tarea">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M3 6h18"></path>
+                          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                          <path d="M8 6V4c0-1 1-2 2-2h4c0 1 1 2 2 2v2"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  @if (task.description) {
+                    <p class="task-description">{{ task.description }}</p>
+                  }
+                  <div class="task-footer">
+                    <span class="task-category" [attr.data-category]="task.category">{{ task.categoryName }}</span>
+                    <span class="task-priority" [attr.data-priority]="task.priority">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="priority-icon"
+                      >
+                        @switch (task.priority) {
+                          @case ('high') {
+                            <path d="m7 11 5-5 5 5"></path>
+                            <path d="m7 17 5-5 5 5"></path>
+                          }
+                          @case ('medium') {
+                            <path d="M5 12h14"></path>
+                          }
+                          @case ('low') {
+                            <path d="m17 13-5 5-5-5"></path>
+                            <path d="m17 7-5 5-5-5"></path>
+                          }
+                        }
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      } @else if (mode === 'routine' && taskCount() > 0) {
+        <!-- Lógica original para modo routine -->
+        <div class="tasks-section">
+          <h3 class="tasks-title">Tareas programadas</h3>
+          <div class="tasks-list">
+            @for (task of tasksWithCategoryNames(); track task.id; let i = $index) {
+              <div class="task-card">
+                <div class="task-header">
+                  <div class="left-header">
+                    <div class="task-time">
+                      <span class="time-text">{{ task.dueTime || '--:--' }}</span>
+                    </div>
+                    <span class="task-title">{{ task.title }}</span>
+                  </div>
+                  <div class="task-actions">
+                    <div class="task-duration">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="duration-icon"
+                      >
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span class="duration-text">{{ formatDuration(task.duration) }}</span>
+                    </div>
+                    <button class="delete-task-btn" (click)="removeTask(i)" title="Eliminar tarea">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M3 6h18"></path>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c0 1 1 2 2 2v2"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                @if (task.description) {
+                  <p class="task-description">{{ task.description }}</p>
+                }
+                <div class="task-footer">
+                  <span class="task-category" [attr.data-category]="task.category">{{ task.categoryName }}</span>
+                  <span class="task-priority" [attr.data-priority]="task.priority">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="priority-icon"
+                    >
+                      @switch (task.priority) {
+                        @case ('high') {
+                          <path d="m7 11 5-5 5 5"></path>
+                          <path d="m7 17 5-5 5 5"></path>
+                        }
+                        @case ('medium') {
+                          <path d="M5 12h14"></path>
+                        }
+                        @case ('low') {
+                          <path d="m17 13-5 5-5-5"></path>
+                          <path d="m17 7-5 5-5-5"></path>
+                        }
+                      }
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      } @else if (hasChipsData()) {
+        <div class="no-tasks-message">
+          <p class="no-tasks-text">
+            {{ mode === 'routine' ? 'Agrega tareas para completar tu rutina' : 'Agrega tareas usando el formulario' }}
+          </p>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <p class="empty-message">
+        {{
+          mode === 'routine'
+            ? 'Comienza llenando el formulario para ver la vista previa de tu rutina'
+            : 'Selecciona una rutina y agrega tareas para ver la vista previa'
+        }}
+      </p>
+    </div>
+  }
+</div>

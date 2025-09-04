@@ -1,0 +1,205 @@
+.tasks-counter-container {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  text-align: left;
+}
+
+.stats-flex {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 16px 12px;
+  border-radius: 8px;
+  flex: 1;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-number {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Colores para cada tipo de tarea */
+.stat-item.completed {
+  background-color: var(--color-success-bg);
+  border: 1px solid var(--color-success-border);
+}
+
+.stat-item.completed .stat-number {
+  color: var(--color-success);
+}
+
+.stat-item.completed .stat-label {
+  color: var(--color-success-border);
+}
+
+.stat-item.lost {
+  background-color: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+}
+
+.stat-item.lost .stat-number {
+  color: var(--color-error);
+}
+
+.stat-item.lost .stat-label {
+  color: var(--color-error-border);
+}
+
+.stat-item.in-progress {
+  background-color: var(--color-info-bg);
+  border: 1px solid var(--color-primary);
+}
+
+.stat-item.in-progress .stat-number {
+  color: var(--color-primary);
+}
+
+.stat-item.in-progress .stat-label {
+  color: var(--color-primary);
+}
+
+.stat-item.pending {
+  background-color: var(--bg-hover);
+  border: 1px solid var(--border-hover);
+}
+
+.stat-item.pending .stat-number {
+  color: var(--text-secondary);
+}
+
+.stat-item.pending .stat-label {
+  color: var(--text-secondary);
+}
+
+.stat-item.skipped {
+  background-color: var(--color-warning-bg);
+  border: 1px solid var(--color-warning-border);
+}
+
+.stat-item.skipped .stat-number {
+  color: var(--color-warning);
+}
+
+.stat-item.skipped .stat-label {
+  color: var(--color-warning-border);
+}
+
+.progress-section {
+  margin-top: 24px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.progress-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.progress-percentage {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: var(--bg-hover);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-success), var(--color-success-hover));
+  border-radius: 4px;
+  transition: width 0.6s ease-in-out;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 480px) {
+  .tasks-counter-container {
+    padding: 20px;
+  }
+
+  .stats-flex {
+    gap: 12px;
+  }
+
+  .stat-item {
+    padding: 12px 8px;
+  }
+
+  .stat-number {
+    font-size: 28px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,22 @@
+/* Ocultar navegación por defecto para evitar flash */
+.navigation-hidden {
+  display: none !important;
+}
+
+.main-content {
+  margin-top: 60px; /* Altura de la navbar */
+  margin-left: 60px; /* Ancho de la sidebar */
+  height: calc(100vh - 60px);
+  overflow: auto;
+  padding: 20px;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+/* Para rutas de login y register sin navbar/sidebar */
+.main-content:not(.main-content) {
+  margin: 0;
+  height: 100vh;
+  padding: 0;
+}

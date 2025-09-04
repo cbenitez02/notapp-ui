@@ -1,0 +1,14 @@
+<div class="sidebar">
+  @for (item of items; track $index) {
+    <div [class]="currentRoute() === item.route ? 'item active' : 'item'">
+      <img
+        [src]="getIcon()(item)"
+        [alt]="item.tooltipText"
+        [class]="$index === 0 ? 'icon first-icon' : 'icon'"
+        (mouseenter)="onMouseEnter(item)"
+        (mouseleave)="onMouseLeave(item)"
+        (click)="onItemClick(item)"
+      />
+    </div>
+  }
+</div>

@@ -1,0 +1,188 @@
+<div class="task-list">
+  <div class="title-container">
+    <span class="title">Tareas Combinadas</span>
+    <span class="count">{{ totalTasks() }} tareas</span>
+  </div>
+  <div class="task-item" *ngFor="let task of tasks()" [class]="getTaskBorderClass(task.status)">
+    <!-- Time -->
+    <div class="task-time">
+      <span class="time">{{ formatTime(task.timeLocal) }}</span>
+      <div class="status-indicator" [class]="'indicator-' + task.status">
+        <div class="circle" *ngIf="task.status === 'pending'"></div>
+        <div class="checkmark" *ngIf="task.status === 'completed'">✓</div>
+        <div class="cross" *ngIf="task.status === 'missed'">✕</div>
+        <div class="clock" *ngIf="task.status === 'skipped'">⏰</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="task-content">
+      <!-- Title and Description -->
+      <div class="task-info">
+        <h3 class="task-title" [class.completed]="task.status === 'completed'">
+          {{ task.title }}
+        </h3>
+        <p class="task-description">{{ task.description }}</p>
+      </div>
+
+      <!-- Tags -->
+      <div class="task-tags">
+        <span class="tag category-tag" [class]="'tag-' + task.category?.color">
+          {{ task.category?.name }}
+        </span>
+        <span class="tag routine-tag" [class]="'tag-'">
+          {{ task.routineName }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="task-actions">
+      <!-- Solo mostrar botones si la tarea NO está missed y NO ha expirado si está completada -->
+      @if (shouldShowActionButtons(task)) {
+        <!-- Primary Action Button -->
+        <button
+          class="btn-icon btn-primary-action"
+          [class]="getStatusAction(task.status).class"
+          (click)="onTaskAction(task.id, getStatusAction(task.status).action)"
+          [title]="getStatusAction(task.status).text"
+          [attr.aria-label]="getStatusAction(task.status).text + ' tarea: ' + task.title"
+          [disabled]="getLoadingState(task.id)"
+        >
+          @if (getLoadingState(task.id)) {
+            <!-- Loading Spinner -->
+            <div class="spinner"></div>
+          } @else {
+            <!-- Icon based on action -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="action-icon"
+            >
+              @switch (getStatusAction(task.status).action) {
+                @case ('complete') {
+                  <path d="M20 6 9 17l-5-5"></path>
+                }
+                @case ('undo') {
+                  <path d="M3 7v6h6"></path>
+                  <path d="m21 17a9 9 0 00-9-9 9 9 0 00-6 2.3L3 13"></path>
+                }
+                @case ('undo_skip') {
+                  <path d="M3 7v6h6"></path>
+                  <path d="m21 17a9 9 0 00-9-9 9 9 0 00-6 2.3L3 13"></path>
+                }
+                @case ('retry') {
+                  <path d="m17 1 4 4-4 4"></path>
+                  <path d="m3 11V9a4 4 0 0 1 4-4h14"></path>
+                  <path d="m7 23-4-4 4-4"></path>
+                  <path d="m21 13v2a4 4 0 0 1-4 4H3"></path>
+                }
+                @case ('recover') {
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="m9 12 2 2 4-4"></path>
+                }
+              }
+            </svg>
+          }
+        </button>
+
+        <!-- Secondary Action Button (for skipped tasks) -->
+        @if (task.status === 'skipped') {
+          <button
+            class="btn-icon btn-secondary-action btn-success"
+            (click)="onSecondaryAction(task.id)"
+            title="Completar tarea"
+            [attr.aria-label]="'Completar tarea: ' + task.title"
+            [disabled]="getLoadingState(task.id)"
+          >
+            @if (getLoadingState(task.id)) {
+              <div class="spinner"></div>
+            } @else {
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="action-icon"
+              >
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+            }
+          </button>
+        }
+
+        <!-- Secondary Action Button (for pending tasks) -->
+        @if (task.status === 'pending') {
+          <button
+            class="btn-icon btn-secondary-action btn-warning"
+            (click)="onSecondaryAction(task.id)"
+            title="Saltar tarea"
+            [attr.aria-label]="'Saltar tarea: ' + task.title"
+            [disabled]="getLoadingState(task.id)"
+          >
+            @if (getLoadingState(task.id)) {
+              <div class="spinner"></div>
+            } @else {
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="action-icon"
+              >
+                <path d="m9 18 6-6-6-6"></path>
+              </svg>
+            }
+          </button>
+        }
+
+        <!-- Secondary Action Button (for in_progress tasks) -->
+        @if (task.status === 'in_progress') {
+          <button
+            class="btn-icon btn-secondary-action btn-warning"
+            (click)="onSecondaryAction(task.id)"
+            title="Saltar tarea"
+            [attr.aria-label]="'Saltar tarea: ' + task.title"
+            [disabled]="getLoadingState(task.id)"
+          >
+            @if (getLoadingState(task.id)) {
+              <div class="spinner"></div>
+            } @else {
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="action-icon"
+              >
+                <path d="m9 18 6-6-6-6"></path>
+              </svg>
+            }
+          </button>
+        }
+      }
+    </div>
+  </div>
+</div>

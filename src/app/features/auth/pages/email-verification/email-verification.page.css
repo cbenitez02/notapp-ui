@@ -1,0 +1,130 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.email-verification-container {
+  background-color: var(--bg-card);
+  width: 100%;
+  max-width: 450px;
+  padding: 34px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.icon-container {
+  background-color: #0052cc4d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.title {
+  font-size: 24px;
+  line-height: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.email-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px;
+  background: var(----bg-main, #1b1d21);
+  border-radius: 6px;
+}
+
+.email {
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.btn-outlined {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  border: 1px solid var(--text-primary);
+  color: var(--text-primary);
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-outlined:hover {
+  background-color: var(--text-primary);
+  color: var(--bg-card);
+}
+
+.btn-clear {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--text-primary);
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-clear:hover {
+  background-color: var(--bg-hover);
+  text-decoration: underline;
+}
+
+.tips-container {
+  background-color: var(--bg-main);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 10px 16px;
+  text-align: start;
+}
+
+.tips-title {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.tips-list {
+  list-style-type: disc;
+  padding-left: 16px;
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--color-primary);
+}

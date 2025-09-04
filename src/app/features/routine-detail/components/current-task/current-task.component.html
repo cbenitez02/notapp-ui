@@ -1,0 +1,199 @@
+<!-- Cuando hay una tarea en progreso -->
+@if (currentTask()) {
+  <div class="current-task-container">
+    <div class="left-content">
+      <div class="icon-container">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#2684FF"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-clock h-5 w-5 text-white"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      </div>
+      <span class="time">{{ formatTime(currentTask()?.timeLocal) }}</span>
+      <div class="task-info">
+        <span class="task-title">{{ currentTask()?.title }}</span>
+        <span class="task-description">{{ currentTask()?.description }}</span>
+        <div class="chips-container">
+          <span class="task-category">{{ currentTask()?.category?.name }}</span>
+          <span class="routine-name">{{ currentTask()?.routineName }}</span>
+          <div class="task-duration">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#c27aff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon-duration-task"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span class="duration-time">{{ currentTask()?.durationMin }} min</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right-content">
+      <div class="status-and-actions">
+        <span class="in-progress">En curso</span>
+        <div class="task-actions">
+          <button
+            class="action-btn complete-btn"
+            type="button"
+            (click)="onCompleteTask()"
+            [disabled]="isCompleting() || isSkipping()"
+            [class.loading]="isCompleting()"
+            title="Completar tarea"
+            [attr.aria-label]="'Completar tarea: ' + currentTask()?.title"
+          >
+            @if (isCompleting()) {
+              <div class="spinner"></div>
+            } @else {
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="action-icon"
+              >
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+            }
+          </button>
+          <button
+            class="action-btn skip-btn"
+            type="button"
+            (click)="onSkipTask()"
+            [disabled]="isCompleting() || isSkipping()"
+            [class.loading]="isSkipping()"
+            title="Saltar tarea"
+            [attr.aria-label]="'Saltar tarea: ' + currentTask()?.title"
+          >
+            @if (isSkipping()) {
+              <div class="spinner"></div>
+            } @else {
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="action-icon"
+              >
+                <path d="m9 18 6-6-6-6"></path>
+              </svg>
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Cuando no hay una tarea en progreso -->
+@if (!currentTask()) {
+  <!-- Si hay una próxima tarea, mostrarla -->
+  @if (nextTask()) {
+    <div class="next-task-container">
+      <div class="left-content">
+        <div class="icon-container next-task-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#2684FF"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-clock"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <span class="time next-time">{{ formatTime(nextTask()?.timeLocal) }}</span>
+        <div class="task-info">
+          <span class="task-title">{{ nextTask()?.title }}</span>
+          <span class="task-description">{{ nextTask()?.description }}</span>
+          <div class="chips-container">
+            <span class="task-category next-category">{{ nextTask()?.category?.name }}</span>
+            <span class="routine-name next-routine">{{ nextTask()?.routineName }}</span>
+            <div class="task-duration next-duration">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#c27aff"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon-duration-task"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span class="duration-time">{{ nextTask()?.durationMin }} min</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-content">
+        <span class="next-up">Próxima</span>
+      </div>
+    </div>
+  } @else {
+    <!-- Si no hay próxima tarea, mostrar mensaje por defecto -->
+    <div class="no-task-container">
+      <div class="no-task-content">
+        <div class="no-task-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#9ca3af"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-clock"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <div class="no-task-text">
+          <span class="no-task-title">No hay tareas programadas</span>
+          <span class="no-task-description">Inicia una rutina para comenzar</span>
+        </div>
+      </div>
+    </div>
+  }
+}

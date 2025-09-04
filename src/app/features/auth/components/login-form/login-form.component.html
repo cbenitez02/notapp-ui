@@ -1,0 +1,47 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+  <div class="form-group">
+    <label for="email" [class.label-error]="email()?.invalid && email()?.touched">Correo Electrónico</label>
+    <input
+      type="email"
+      id="email"
+      formControlName="email"
+      class="form-control input-text"
+      [class.is-invalid]="email()?.invalid && email()?.touched"
+      placeholder="Ingrese su correo electrónico"
+    />
+
+    <div *ngIf="email()?.invalid && email()?.touched" class="error-message">
+      {{ emailError() }}
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password" [class.label-error]="password()?.invalid && password()?.touched">Contraseña</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      class="form-control input-text"
+      [class.is-invalid]="password()?.invalid && password()?.touched"
+      placeholder="Ingrese su contraseña"
+    />
+
+    <div *ngIf="password()?.invalid && password()?.touched" class="error-message">
+      {{ passwordError() }}
+    </div>
+  </div>
+
+  <div class="text-container">
+    <span class="text">¿Olvidaste tu contraseña? <span class="link">Recuperar contraseña</span></span>
+  </div>
+
+  <div class="btn-container">
+    <button type="submit" class="btn">
+      <span class="text-in-btn">Iniciar Sesión</span>
+    </button>
+  </div>
+
+  <div class="text-container">
+    <span class="text">¿No tenes una cuenta? <span class="link" (click)="goToRegister()">Registrate aquí</span></span>
+  </div>
+</form>
