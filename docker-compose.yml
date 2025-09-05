@@ -1,0 +1,13 @@
+services:
+  web:
+    build: .
+    container_name: notapp-frontend
+    restart: always
+    ports:
+      - '8080:80'
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    external: true
